@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Proyectos Destacados - SWGPI</title>
+  <meta name="description" content="Proyectos Integradores Destacados">
+
+  <!-- Favicons -->
+  <link href="assets/img/ITSSMT/ITSSMT.png" rel="icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-card .card-body {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card .card-text {
+      flex-grow: 1;
+    }
+
+    .project-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-year {
+      font-weight: bold;
+      color: #0d6efd;
+    }
+
+    .project-authors {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+
+<body class="news-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <i class="bi bi-buildings"></i>
+        <h1 class="sitename">Gestion de Proyectos Integradores ITSSMT</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="academics.html">Académico</a></li>
+          <li><a href="faculty-staff.html">Facultad</a></li>
+          <li class="dropdown"><a href="projects_showcase.html"><span>Proyectos</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="projects_showcase.html">Ver Proyectos</a></li>
+              <li><a href="projects_view.html">Panel Administrativo</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html">Contacto</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 class="heading-title">Proyectos Integradores</h1>
+              <p class="mb-0">Descubre los proyectos desarrollados por nuestros estudiantes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="index.html">Inicio</a></li>
+            <li class="current">Proyectos</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Proyectos Galería -->
+    <section id="projects-showcase" class="section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Proyectos Destacados</h2>
+          <p>Una selección de los mejores proyectos integradores realizados en ITSSMT</p>
+        </div>
+
+        <!-- Filtros -->
+        <div class="row mb-5 text-center">
+          <div class="col-lg-8 mx-auto">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-primary active" data-filter="*">Todos</button>
+              <button type="button" class="btn btn-outline-primary" data-filter=".web">Web</button>
+              <button type="button" class="btn btn-outline-primary" data-filter=".mobile">Móvil</button>
+              <button type="button" class="btn btn-outline-primary" data-filter=".desktop">Desktop</button>
+              <button type="button" class="btn btn-outline-primary" data-filter=".ia">IA/ML</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grilla de Proyectos -->
+        <div class="row g-4">
+          <!-- Proyecto 1 -->
+          <div class="col-lg-4 col-md-6 project-item web" data-aos="fade-up">
+            <div class="card project-card">
+              <div class="card-header bg-primary text-white">
+                <i class="bi bi-collection"></i> Aplicación Web
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-info text-white">2023</span>
+                <h5 class="card-title">Sistema de Gestión de Biblioteca</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> Juan García, María López
+                </p>
+                <p class="card-text">Desarrollo de un sistema web completo para la gestión de bibliotecas digitales y físicas, con búsqueda avanzada, préstamos y devoluciones automatizadas.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(1)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 2 -->
+          <div class="col-lg-4 col-md-6 project-item web" data-aos="fade-up" data-aos-delay="100">
+            <div class="card project-card">
+              <div class="card-header bg-success text-white">
+                <i class="bi bi-laptop"></i> Plataforma Web
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-success text-white">2023</span>
+                <h5 class="card-title">Plataforma de E-Learning</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> Carlos Rodríguez, Ana Martínez
+                </p>
+                <p class="card-text">Plataforma educativa interactiva con seguimiento de estudiantes, análisis de desempeño en tiempo real y sistema de calificaciones integrado.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(2)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 3 -->
+          <div class="col-lg-4 col-md-6 project-item mobile" data-aos="fade-up" data-aos-delay="200">
+            <div class="card project-card">
+              <div class="card-header bg-danger text-white">
+                <i class="bi bi-phone"></i> Aplicación Móvil
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-danger text-white">2024</span>
+                <h5 class="card-title">App de Monitoreo de Salud</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> Pedro Sánchez, Laura Díaz
+                </p>
+                <p class="card-text">Aplicación móvil innovadora para el seguimiento de signos vitales, gestión de citas médicas y registro de historial clínico personal.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(3)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 4 -->
+          <div class="col-lg-4 col-md-6 project-item desktop" data-aos="fade-up" data-aos-delay="300">
+            <div class="card project-card">
+              <div class="card-header bg-warning text-dark">
+                <i class="bi bi-windows"></i> Aplicación Desktop
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-warning text-dark">2024</span>
+                <h5 class="card-title">Sistema de Control de Inventario</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> Miguel Núñez, Sofia Ramos
+                </p>
+                <p class="card-text">Solución empresarial completa para el control automatizado de inventarios en tiempo real con reportes avanzados y análisis predictivo.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(4)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 5 -->
+          <div class="col-lg-4 col-md-6 project-item ia" data-aos="fade-up" data-aos-delay="400">
+            <div class="card project-card">
+              <div class="card-header bg-secondary text-white">
+                <i class="bi bi-cpu"></i> IA/Machine Learning
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-secondary text-white">2024</span>
+                <h5 class="card-title">Chatbot de Atención al Cliente</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> Isabel Flores, Ricardo Torres
+                </p>
+                <p class="card-text">Asistente virtual inteligente con procesamiento de lenguaje natural para proporcionar soporte técnico 24/7 y mejorar la experiencia del cliente.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(5)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 6 -->
+          <div class="col-lg-4 col-md-6 project-item web ia" data-aos="fade-up" data-aos-delay="500">
+            <div class="card project-card">
+              <div class="card-header bg-info text-white">
+                <i class="bi bi-graph-up"></i> Sistema Inteligente
+              </div>
+              <div class="card-body">
+                <span class="project-badge bg-info text-white">2024</span>
+                <h5 class="card-title">Sistema de Recomendaciones</h5>
+                <p class="project-authors">
+                  <i class="bi bi-person"></i> González Hernández, Martínez Pérez
+                </p>
+                <p class="card-text">Motor de recomendaciones basado en IA que utiliza algoritmos de machine learning para personalizar la experiencia de usuarios en plataforma de comercio electrónico.</p>
+                <div class="mt-auto">
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#projectDetailModal" onclick="loadProjectDetail(6)">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <a href="projects_view.html" class="btn btn-primary btn-lg">
+            <i class="bi bi-arrow-right"></i> Ver Panel Administrativo
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal de Detalles del Proyecto -->
+  <div class="modal fade" id="projectDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" id="projectTitle">Detalle del Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <strong>Año:</strong> <span id="projectYear">2024</span>
+            </div>
+            <div class="col-md-8">
+              <strong>Tipo:</strong> <span id="projectType" class="badge bg-primary">Web</span>
+            </div>
+          </div>
+          <hr>
+          <div class="mb-3">
+            <strong>Autores:</strong>
+            <p id="projectAuthors">Juan García, María López</p>
+          </div>
+          <div class="mb-3">
+            <strong>Descripción Completa:</strong>
+            <p id="projectFullDescription">Lorem ipsum dolor sit amet...</p>
+          </div>
+          <div class="mb-3">
+            <strong>Tecnologías Utilizadas:</strong>
+            <div id="projectTechnologies">
+              <span class="badge bg-secondary">HTML5</span>
+              <span class="badge bg-secondary">CSS3</span>
+              <span class="badge bg-secondary">JavaScript</span>
+              <span class="badge bg-secondary">PHP</span>
+              <span class="badge bg-secondary">MySQL</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <strong>Logros Principales:</strong>
+            <ul id="projectAchievements">
+              <li>Interfaz intuitiva y responsive</li>
+              <li>Sistema de autenticación seguro</li>
+              <li>Base de datos optimizada</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <a href="#" class="btn btn-primary" id="projectLink">
+            <i class="bi bi-download"></i> Descargar Documentación
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer" class="footer-16 footer position-relative dark-background">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="bottom-content">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="copyright">
+                <p>© <span class="sitename">SWGPI ITSSMT</span>. Todos los derechos reservados.</p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="legal-links">
+                <div class="credits">
+                  Diseñado por <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Datos de proyectos
+    const projectsData = [
+      {
+        id: 1,
+        title: 'Sistema de Gestión de Biblioteca',
+        authors: 'Juan García, María López',
+        year: 2023,
+        type: 'Web',
+        description: 'Desarrollo de un sistema web completo para la gestión de bibliotecas digitales y físicas, con búsqueda avanzada, préstamos y devoluciones automatizadas.',
+        fullDescription: 'Este proyecto representa una solución integral para la gestión de bibliotecas modernas. Incluye funcionalidades avanzadas como búsqueda con filtros complejos, sistema de préstamos con seguimiento, renovaciones automáticas y notificaciones por devolución próxima. La plataforma permite a los bibliotecarios administrar inventarios, reservas y generar reportes detallados.',
+        technologies: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'MySQL', 'Bootstrap'],
+        achievements: ['Interfaz intuitiva y responsive', 'Sistema de búsqueda avanzada', 'Gestión de préstamos automatizada', 'Reportes en tiempo real', 'Integración de códigos QR']
+      },
+      {
+        id: 2,
+        title: 'Plataforma de E-Learning',
+        authors: 'Carlos Rodríguez, Ana Martínez',
+        year: 2023,
+        type: 'Web',
+        description: 'Plataforma educativa interactiva con seguimiento de estudiantes, análisis de desempeño en tiempo real y sistema de calificaciones integrado.',
+        fullDescription: 'Una plataforma educativa completa que facilita el aprendizaje en línea con herramientas colaborativas. Incluye videoconferencias integradas, salas de chat por curso, entrega de tareas con rúbricas de evaluación automática, y paneles de control para docentes y estudiantes con análisis de progreso en tiempo real.',
+        technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'WebSocket', 'AWS'],
+        achievements: ['Videoconferencias integradas', 'Análisis de desempeño predictivo', 'Sistema de calificaciones automáticas', 'Colaboración en tiempo real', 'Escalabilidad en la nube']
+      },
+      {
+        id: 3,
+        title: 'App de Monitoreo de Salud',
+        authors: 'Pedro Sánchez, Laura Díaz',
+        year: 2024,
+        type: 'Móvil',
+        description: 'Aplicación móvil innovadora para el seguimiento de signos vitales, gestión de citas médicas y registro de historial clínico personal.',
+        fullDescription: 'Aplicación móvil nativa para iOS y Android que permite a los usuarios monitorear su salud en tiempo real. Integra dispositivos wearables para lectura de signos vitales, recordatorios de medicamentos, agendamiento de citas con médicos, y sincronización segura con registros médicos electrónicos.',
+        technologies: ['Swift', 'Kotlin', 'Firebase', 'HealthKit', 'API REST', 'Encriptación AES-256'],
+        achievements: ['Integración con wearables', 'Sincronización en tiempo real', 'Seguridad HIPAA', 'Interfaz intuitiva', 'Soporte multi-idioma']
+      },
+      {
+        id: 4,
+        title: 'Sistema de Control de Inventario',
+        authors: 'Miguel Núñez, Sofia Ramos',
+        year: 2024,
+        type: 'Desktop',
+        description: 'Solución empresarial completa para el control automatizado de inventarios en tiempo real con reportes avanzados y análisis predictivo.',
+        fullDescription: 'Sistema de escritorio robusto para grandes empresas que necesitan control exhaustivo de inventarios. Incluye lectura de códigos de barras, predicción de demanda con IA, alertas de stock bajo, integración con contabilidad y generación de reportes financieros personalizados.',
+        technologies: ['C#', '.NET Framework', 'SQL Server', 'WPF', 'Machine Learning', 'Crystal Reports'],
+        achievements: ['Predicción de demanda con IA', 'Reportes financieros integrados', 'Código de barras 2D', 'Multi-ubicación', 'Auditoría completa']
+      },
+      {
+        id: 5,
+        title: 'Chatbot de Atención al Cliente',
+        authors: 'Isabel Flores, Ricardo Torres',
+        year: 2024,
+        type: 'IA/ML',
+        description: 'Asistente virtual inteligente con procesamiento de lenguaje natural para proporcionar soporte técnico 24/7 y mejorar la experiencia del cliente.',
+        fullDescription: 'Chatbot impulsado por inteligencia artificial que utiliza NLP avanzado para entender intenciones de usuarios. Aprende de cada interacción, escala automáticamente según la carga, se integra con sistemas de ticketing y transfiere a agentes humanos cuando es necesario.',
+        technologies: ['Python', 'TensorFlow', 'NLP', 'OpenAI API', 'React', 'Node.js', 'Dialogflow'],
+        achievements: ['NLP avanzado en español', 'Aprendizaje continuo', 'Escalabilidad automática', 'Integración omnicanal', 'Reducción de tickets 60%']
+      },
+      {
+        id: 6,
+        title: 'Sistema de Recomendaciones',
+        authors: 'González Hernández, Martínez Pérez',
+        year: 2024,
+        type: 'Web/IA',
+        description: 'Motor de recomendaciones basado en IA que utiliza algoritmos de machine learning para personalizar la experiencia de usuarios en plataforma de comercio electrónico.',
+        fullDescription: 'Motor de recomendaciones avanzado que utiliza algoritmos colaborativos e híbridos para predecir preferencias de usuarios. Incluye análisis de comportamiento, detección de tendencias, pruebas A/B automatizadas y optimización continua del modelo.',
+        technologies: ['Python', 'scikit-learn', 'Pandas', 'Spark', 'Elasticsearch', 'Vue.js', 'PostgreSQL'],
+        achievements: ['Aumento de conversión 35%', 'Latencia <100ms', 'Modelo híbrido avanzado', 'A/B testing automático', 'Análisis de cohortes']
+      }
+    ];
+
+    function loadProjectDetail(projectId) {
+      const project = projectsData.find(p => p.id === projectId);
+      if (project) {
+        document.getElementById('projectTitle').textContent = project.title;
+        document.getElementById('projectYear').textContent = project.year;
+        document.getElementById('projectType').textContent = project.type;
+        document.getElementById('projectAuthors').textContent = project.authors;
+        document.getElementById('projectFullDescription').textContent = project.fullDescription;
+        
+        // Tecnologías
+        const techContainer = document.getElementById('projectTechnologies');
+        techContainer.innerHTML = project.technologies
+          .map(tech => `<span class="badge bg-secondary">${tech}</span>`)
+          .join('');
+        
+        // Logros
+        const achievementsContainer = document.getElementById('projectAchievements');
+        achievementsContainer.innerHTML = project.achievements
+          .map(achievement => `<li>${achievement}</li>`)
+          .join('');
+      }
+    }
+
+    // Filtrado de proyectos
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.getAttribute('data-filter');
+        document.querySelectorAll('.project-item').forEach(item => {
+          if (filter === '*' || item.classList.contains(filter.substring(1))) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

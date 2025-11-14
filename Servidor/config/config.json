@@ -1,0 +1,21 @@
+{
+  "database": {
+    "servidor": "localhost",
+    "usuario": "root",
+    "pass": "",
+    "bbdd": "myschool_integrator",
+    "puerto": 3306,
+    "charset": "utf8mb4"
+  },
+  "auth": {
+    "password_validation": "flexible",
+    "allow_plaintext": true,
+    "allow_bcrypt": true,
+    "hash_algo": "PASSWORD_DEFAULT",
+    "hash_cost": 10
+  },
+  "app": {
+    "name": "SWGPI ITSSMT",
+    "version": "1.0.0"
+  }
+}

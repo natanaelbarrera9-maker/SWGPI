@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Proyectos - Panel Admin</title>
+  <meta name="description" content="Gestión de Proyectos Integradores">
+
+  <!-- Favicons -->
+  <link href="assets/img/ITSSMT/ITSSMT.png" rel="icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="news-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <i class="bi bi-buildings"></i>
+        <h1 class="sitename">Gestion de Proyectos Integradores ITSSMT</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li class="dropdown"><a href="admin_view.html"><span>Usuarios</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#registerUserModal">Registrar Usuario</a></li>
+              <li><a href="admin_view.html">Ver Usuarios</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="projects_view.html"><span>Proyectos</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="projects_view.html">Ver Proyectos</a></li>
+              <li><a href="projects_view.html?action=register">Registrar Proyecto</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html">Cerrar Sesión</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 class="heading-title">Gestión de Proyectos</h1>
+              <p class="mb-0">Administra los proyectos integradores del repositorio.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="index.html">Inicio</a></li>
+            <li class="current">Proyectos</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section id="projects-panel" class="admin-panel section">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2>Proyectos</h2>
+          <div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerProjectModal"><i class="bi bi-plus-circle"></i> Registrar Proyecto</button>
+          </div>
+        </div>
+
+        <!-- Mensajes de estado -->
+        <div id="status-messages"></div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autores</th>
+                    <th>Año</th>
+                    <th>Descripción</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Sistema de Gestión de Biblioteca</td>
+                    <td>Juan García, María López</td>
+                    <td>2023</td>
+                    <td>Desarrollo de un sistema web para la gestión completa de bibliotecas digitales y físicas.</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-sm" title="Ver" data-bs-toggle="modal" data-bs-target="#viewProjectModal"><i class="bi bi-eye"></i></button>
+                      <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#editProjectModal"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-danger btn-sm" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteProjectModal"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Plataforma de E-Learning</td>
+                    <td>Carlos Rodríguez, Ana Martínez</td>
+                    <td>2023</td>
+                    <td>Plataforma educativa interactiva con seguimiento de estudiantes y análisis de desempeño.</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-sm" title="Ver" data-bs-toggle="modal" data-bs-target="#viewProjectModal"><i class="bi bi-eye"></i></button>
+                      <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#editProjectModal"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-danger btn-sm" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteProjectModal"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>App de Monitoreo de Salud</td>
+                    <td>Pedro Sánchez, Laura Díaz</td>
+                    <td>2024</td>
+                    <td>Aplicación móvil para el seguimiento de signos vitales y citas médicas.</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-sm" title="Ver" data-bs-toggle="modal" data-bs-target="#viewProjectModal"><i class="bi bi-eye"></i></button>
+                      <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#editProjectModal"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-danger btn-sm" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteProjectModal"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Sistema de Control de Inventario</td>
+                    <td>Miguel Núñez, Sofia Ramos</td>
+                    <td>2024</td>
+                    <td>Solución empresarial para el control automatizado de inventarios en tiempo real.</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-sm" title="Ver" data-bs-toggle="modal" data-bs-target="#viewProjectModal"><i class="bi bi-eye"></i></button>
+                      <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#editProjectModal"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-danger btn-sm" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteProjectModal"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Chatbot de Atención al Cliente</td>
+                    <td>Isabel Flores, Ricardo Torres</td>
+                    <td>2024</td>
+                    <td>Asistente virtual inteligente con procesamiento de lenguaje natural para soporte técnico.</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-sm" title="Ver" data-bs-toggle="modal" data-bs-target="#viewProjectModal"><i class="bi bi-eye"></i></button>
+                      <button class="btn btn-warning btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#editProjectModal"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-danger btn-sm" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteProjectModal"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <a href="admin_view.html" class="btn btn-secondary">Volver a Admin</a>
+        </div>
+      </div>
+    </section>
+
+  <!-- MODALES PARA PROYECTOS -->
+  <!-- Ver Proyecto -->
+  <div class="modal fade" id="viewProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalle del Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="viewProjectBody">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p><strong>ID:</strong> <span id="viewProjectId">1</span></p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Año:</strong> <span id="viewProjectYear">2023</span></p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <p><strong>Título:</strong></p>
+            <p id="viewProjectTitle">Sistema de Gestión de Biblioteca</p>
+          </div>
+          <div class="mb-3">
+            <p><strong>Autores:</strong></p>
+            <p id="viewProjectAuthors">Juan García, María López</p>
+          </div>
+          <div class="mb-3">
+            <p><strong>Descripción:</strong></p>
+            <p id="viewProjectDescription">Desarrollo de un sistema web para la gestión completa de bibliotecas digitales y físicas.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editar Proyecto -->
+  <div class="modal fade" id="editProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProjectForm" method="post" action="projects_actions.php">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" id="editProjectId" name="id">
+            <div class="mb-3">
+              <label class="form-label">Título</label>
+              <input type="text" class="form-control" id="editProjectTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Autores</label>
+              <input type="text" class="form-control" id="editProjectAuthors" name="authors">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Año</label>
+              <input type="number" class="form-control" id="editProjectYear" name="year">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-control" id="editProjectDescription" name="description" rows="4"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('editProjectForm').submit();">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eliminar Proyecto -->
+  <div class="modal fade" id="deleteProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro que desea eliminar este proyecto?</p>
+          <p><strong>Proyecto:</strong> <span id="deleteProjectName">Sistema de Gestión de Biblioteca</span></p>
+        </div>
+        <div class="modal-footer">
+          <form id="deleteProjectForm" method="post" action="projects_actions.php">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" id="deleteProjectId" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registrar Proyecto -->
+  <div class="modal fade" id="registerProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registrar Nuevo Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerProjectForm" method="post" action="projects_actions.php">
+            <input type="hidden" name="action" value="register">
+            <div class="mb-3">
+              <label class="form-label">Título <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="regProjectTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Autores</label>
+              <input type="text" class="form-control" id="regProjectAuthors" name="authors" placeholder="Ej: Juan García, María López">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Año</label>
+              <input type="number" class="form-control" id="regProjectYear" name="year" placeholder="Ej: 2024">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-control" id="regProjectDescription" name="description" rows="4" placeholder="Describe el proyecto..."></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('registerProjectForm').submit();">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Simulación de datos de proyectos
+    const projects = [
+      {
+        id: 1,
+        title: 'Sistema de Gestión de Biblioteca',
+        authors: 'Juan García, María López',
+        year: 2023,
+        description: 'Desarrollo de un sistema web para la gestión completa de bibliotecas digitales y físicas.'
+      },
+      {
+        id: 2,
+        title: 'Plataforma de E-Learning',
+        authors: 'Carlos Rodríguez, Ana Martínez',
+        year: 2023,
+        description: 'Plataforma educativa interactiva con seguimiento de estudiantes y análisis de desempeño.'
+      },
+      {
+        id: 3,
+        title: 'App de Monitoreo de Salud',
+        authors: 'Pedro Sánchez, Laura Díaz',
+        year: 2024,
+        description: 'Aplicación móvil para el seguimiento de signos vitales y citas médicas.'
+      },
+      {
+        id: 4,
+        title: 'Sistema de Control de Inventario',
+        authors: 'Miguel Núñez, Sofia Ramos',
+        year: 2024,
+        description: 'Solución empresarial para el control automatizado de inventarios en tiempo real.'
+      },
+      {
+        id: 5,
+        title: 'Chatbot de Atención al Cliente',
+        authors: 'Isabel Flores, Ricardo Torres',
+        year: 2024,
+        description: 'Asistente virtual inteligente con procesamiento de lenguaje natural para soporte técnico.'
+      }
+    ];
+
+    // View project - llenar modal con datos de ejemplo
+    document.querySelectorAll('.btn-info').forEach((btn, idx) => {
+      btn.addEventListener('click', function() {
+        if (idx < projects.length) {
+          const p = projects[idx];
+          document.getElementById('viewProjectId').textContent = p.id;
+          document.getElementById('viewProjectTitle').textContent = p.title;
+          document.getElementById('viewProjectAuthors').textContent = p.authors;
+          document.getElementById('viewProjectYear').textContent = p.year;
+          document.getElementById('viewProjectDescription').textContent = p.description;
+        }
+      });
+    });
+
+    // Edit project - llenar formulario de edición
+    document.querySelectorAll('.btn-warning').forEach((btn, idx) => {
+      btn.addEventListener('click', function() {
+        if (idx < projects.length) {
+          const p = projects[idx];
+          document.getElementById('editProjectId').value = p.id;
+          document.getElementById('editProjectTitle').value = p.title;
+          document.getElementById('editProjectAuthors').value = p.authors;
+          document.getElementById('editProjectYear').value = p.year;
+          document.getElementById('editProjectDescription').value = p.description;
+        }
+      });
+    });
+
+    // Delete project - llenar datos del proyecto a eliminar
+    document.querySelectorAll('.btn-danger').forEach((btn, idx) => {
+      btn.addEventListener('click', function() {
+        if (idx < projects.length) {
+          const p = projects[idx];
+          document.getElementById('deleteProjectId').value = p.id;
+          document.getElementById('deleteProjectName').textContent = p.title;
+        }
+      });
+    });
+  });
+  </script>
+
+  </main>
+
+  <footer id="footer" class="footer-16 footer position-relative dark-background">
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="bottom-content">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="copyright">
+                <p>© <span class="sitename">SWGPI ITSSMT</span>. Todos los derechos reservados.</p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="legal-links">
+                <div class="credits">
+                  Diseñado por <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>

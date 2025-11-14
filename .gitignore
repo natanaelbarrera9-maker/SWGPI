@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Config sensitive
+config/config.ini
+config/config.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporales
+tmp/
+temp/
+*.tmp

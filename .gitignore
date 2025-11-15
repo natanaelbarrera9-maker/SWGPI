@@ -24,3 +24,14 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Laravel / PHP
+/vendor/
+/composer.lock
+/.env
+/.env.*
+/.idea
+
+# Laravel storage & cache
+/storage/
+/bootstrap/cache/

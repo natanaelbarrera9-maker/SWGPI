@@ -1,0 +1,44 @@
+# Laravel .gitignore para Topicos
+
+# Dependencies
+/vendor/
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Local files
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Laravel
+/bootstrap/cache/
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+storage/*.key
+
+# Composer
+composer.lock
+
+# Tests
+/tests/
+.phpunit.result.cache
+
+# Build
+/public/css/
+/public/js/
+/public/mix-manifest.json

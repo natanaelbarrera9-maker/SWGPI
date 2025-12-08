@@ -1,0 +1,328 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    EXPLICACIÓN SIMPLE Y DIRECTA
+═══════════════════════════════════════════════════════════════════════════════
+
+¿QUÉ ES LA CARPETA PLANTILLA?
+==============================
+
+Es una **COPIA ORGANIZADA Y SEPARADA** del proyecto original donde todo está 
+en 3 carpetas principales, cada una con un propósito específico.
+
+En lugar de tener todo mezclado (vistas, código, estilos juntos), ahora está 
+limpio y separado:
+
+        ANTES (caótico)              DESPUÉS (organizado)
+        ═══════════════              ════════════════════
+        
+        Cliente/                     plantilla/
+        ├── admin_view.php               ├── 1_Vistas/ (INTERFACES)
+        ├── projects_view.php            │   ├── Admin/
+        ├── login.php                    │   ├── Docente/
+        ├── projects_actions.php         │   ├── Estudiante/
+        ├── user_actions.php             │   ├── Repositorio/
+        ├── db.php                       │   └── Login/
+        ├── assets/                      │
+        │   ├── css/                 ├── 2_Funciones/ (LÓGICA)
+        │   ├── js/                  │   ├── Conexion/
+        │   └── img/                 │   ├── Autenticacion/
+        └── ...                      │   └── Actions/
+                                     │
+                                     └── 3_Assets/ (ESTILOS & JS)
+                                         ├── css/
+                                         ├── js/
+                                         ├── img/
+                                         └── vendor/
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+LAS 3 CARPETAS EXPLICADAS EN SIMPLES PALABRAS
+==============================================
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 1️⃣  1_VISTAS - LO QUE EL USUARIO VE                                        ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+SIMIL:  Es como el **MOSTRADOR DE UNA TIENDA**
+        
+        El cliente entra, ve productos, formularios, botones, tablas...
+        Eso está aquí en 1_Vistas/
+
+CONTENIDO:
+  ✅ Páginas HTML (estructura)
+  ✅ Formularios (inputs, botones)
+  ✅ Tablas (mostrar datos)
+  ✅ Textos e instrucciones
+  ❌ NO hace cálculos
+  ❌ NO guarda en BD
+  ❌ NO procesa datos
+
+EJEMPLOS DE ARCHIVOS:
+  - admin_welcome.php → Panel de bienvenida del admin
+  - projects_view.php → Tabla de proyectos
+  - login.php → Formulario de login
+  
+ORGANIZACIÓN:
+  1_Vistas/
+  ├── Admin/ ................... Lo que ve un ADMIN
+  ├── Docente/ ................. Lo que ve un DOCENTE
+  ├── Estudiante/ .............. Lo que ve un ESTUDIANTE
+  ├── Repositorio/ ............. Lo que ve SIN LOGIN
+  ├── Login/ ................... Páginas de autenticación
+  └── index.html ............... Portada principal
+
+ANALOGÍA: Si fuera un restaurante, 1_Vistas/ sería el MENÚ que ves.
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 2️⃣  2_FUNCIONES - CÓMO FUNCIONA EL SISTEMA (EL "CEREBRO")                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+SIMIL:  Es como la **COCINA DE UN RESTAURANTE**
+        
+        El cliente no la ve, pero ahí es donde se prepara todo:
+        Se cocinan los platos, se valida la calidad, se guarda en despensa...
+
+CONTENIDO:
+  ✅ Conexión a Base de Datos (db.php)
+  ✅ Validación de usuarios (AuthValidator.php)
+  ✅ Procesamiento de formularios (*_actions.php)
+  ✅ Inserta/edita/elimina datos
+  ✅ Envía emails
+  ❌ NO muestra HTML
+  ❌ NO tiene estilos
+  ❌ NO tiene imágenes
+
+SUBDIVISIONES:
+
+  A) Conexion/
+     - db.php ← Conecta a la Base de Datos
+     - config.ini ← Credenciales (usuario, contraseña)
+     → PROPÓSITO: Abrir la puerta a la BD
+
+  B) Autenticacion/
+     - AuthValidator.php ← Valida contraseña
+     - password_reset_actions.php ← Recuperar contraseña
+     → PROPÓSITO: Verificar que seas quien dices ser
+
+  C) Actions/ (CRUD = Create, Read, Update, Delete)
+     - projects_actions.php → Agregar/editar/eliminar proyectos
+     - user_actions.php → Agregar/editar/eliminar usuarios
+     - subject_actions.php → Agregar/editar asignaturas
+     - ... (varios más)
+     → PROPÓSITO: Procesar formularios y guardar en BD
+
+FLUJO TÍPICO:
+  
+  1. Usuario llena formulario en 1_Vistas/
+  2. Presiona "Guardar"
+  3. Se envía a 2_Funciones/Actions/projects_actions.php
+  4. projects_actions.php valida los datos
+  5. Usa 2_Funciones/Conexion/db.php para conectar
+  6. Inserta en la BD
+  7. Redirige a 1_Vistas/ con mensaje de éxito
+
+ANALOGÍA: Si fuera un restaurante, 2_Funciones/ sería la COCINA.
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 3️⃣  3_ASSETS - CÓMO SE VE (ESTILOS Y EFECTOS)                              ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+SIMIL:  Es como la **DECORACIÓN DEL RESTAURANTE**
+        
+        Colores, música, iluminación, decoración...
+        Hace el lugar atractivo y acogedor.
+
+CONTENIDO:
+  ✅ Estilos CSS (colores, fuentes, espacios)
+  ✅ JavaScript (interactividad, animaciones)
+  ✅ Imágenes (fotos, logos)
+  ✅ Librerías externas (Bootstrap, iconos, etc.)
+  ❌ NO procesa datos
+  ❌ NO conecta a BD
+
+SUBDIVISIONES:
+
+  A) css/
+     - main.css → Todos los estilos del sitio
+     → PROPÓSITO: Hacer bonito lo que está en 1_Vistas/
+
+  B) js/
+     - main.js → Hacer cosas cuando haces click
+     → PROPÓSITO: Interactividad (abrir modales, validar, etc.)
+
+  C) img/
+     - ITSSMT/ → Logo
+     - blog/ → Fotos de proyectos
+     - education/ → Recursos educativos
+     - person/ → Fotos de perfil
+     → PROPÓSITO: Imágenes para mostrar
+
+  D) vendor/ (Librerías externas)
+     - bootstrap/ → Framework HTML/CSS
+     - bootstrap-icons/ → Iconos
+     - swiper/ → Carrusel de imágenes
+     - glightbox/ → Galería de fotos
+     - purecounter/ → Contador animado
+     → PROPÓSITO: Ahorrar tiempo usando código ya hecho
+
+ANALOGÍA: Si fuera un restaurante, 3_Assets/ sería la DECORACIÓN.
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+UN EJEMPLO REAL: CREAR UN NUEVO PROYECTO
+==========================================
+
+Admin quiere registrar un nuevo proyecto llamado "App de Gestión".
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PASO 1: Admin ve la pantalla (1_Vistas/)                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Admin abre navegador
+         ↓
+Ve página: 1_Vistas/Admin/projects_view.php
+         ↓
+Esa página está hermosa porque:
+  - 3_Assets/css/main.css le da estilos (colores, fuentes)
+  - 3_Assets/js/main.js agrega interactividad (modales, botones)
+  - 3_Assets/img/ITSSMT/ le agrega logo
+  
+Admin ve botón: "Registrar Proyecto"
+         ↓
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PASO 2: Admin completa formulario y presiona "Guardar"                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Admin llena:
+  - Título: "App de Gestión"
+  - Descripción: "Una aplicación para..."
+  - Estudiantes: Selecciona 3 alumnos
+         ↓
+Presiona botón "Guardar"
+         ↓
+Formulario POST enviado a:
+  2_Funciones/Actions/projects_actions.php?action=register
+         ↓
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PASO 3: El servidor (2_Funciones/) procesa todo                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+projects_actions.php recibe los datos:
+  ├── Valida: ¿El título está vacío? ¿Hay estudiantes?
+  ├── Conecta a BD usando: 2_Funciones/Conexion/db.php
+  ├── Verifica permisos: ¿Este usuario es admin?
+  ├── Inserta en tabla "projects"
+  ├── Inserta en tabla "project_user" (relación)
+  └── Redirige a projects_view.php con ?status=success&msg=created
+         ↓
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PASO 4: Admin ve resultado (1_Vistas/)                                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+projects_view.php recarga:
+  ├── Muestra mensaje: "Proyecto registrado correctamente"
+  ├── Tabla se actualiza mostrando el nuevo proyecto
+  └── Todo hermoso porque 3_Assets/ le da estilo
+         ↓
+¡Listo!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+¿POR QUÉ ESTA ESTRUCTURA ES MEJOR?
+===================================
+
+ANTES (sin separar):
+  ❌ Admin, docente y estudiante ven todo revuelto
+  ❌ Difícil encontrar dónde cambiar algo
+  ❌ Código duplicado en muchos lados
+  ❌ Si editas un *_actions.php, no sabes si rompe otros
+
+AHORA (separado en 3 carpetas):
+  ✅ Cada rol tiene su carpeta clara
+  ✅ Todo CRUD en un solo lugar (Actions/)
+  ✅ Estilos en un solo lugar (Assets/)
+  ✅ Fácil mantener, debuggear, escalar
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+GUÍA RÁPIDA: ¿DÓNDE EDITO ALGO?
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Quiero cambiar los colores/fuentes                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+   → 3_Assets/css/main.css
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Quiero hacer que algo se mueva o sea interactivo                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+   → 3_Assets/js/main.js
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Quiero cambiar cómo se guarda un proyecto en BD                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+   → 2_Funciones/Actions/projects_actions.php
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Quiero cambiar la página que ve el admin                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+   → 1_Vistas/Admin/admin_welcome.php
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Quiero cambiar credenciales de BD                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+   → 2_Funciones/Conexion/db.php
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ANALOGÍA FINAL: UNA PELÍCULA
+=============================
+
+1_VISTAS = SETS DE GRABACIÓN
+  Lo que ves en pantalla: actores, escenarios, diálogos
+
+2_FUNCIONES = GUIÓN + DIRECCIÓN
+  Lo que no ves: cómo se arma todo, las reglas, la lógica
+
+3_ASSETS = CINEMATOGRAFÍA + EDICIÓN
+  Lo que hace todo bello: cámara, iluminación, efectos, música
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+¿PREGUNTAS?
+===========
+
+¿Por qué están numeradas? (1_, 2_, 3_)
+  → Para que al hacer scroll en explorador, salgan en orden
+
+¿Necesito cambiar rutas en mis archivos?
+  → SÍ, si copias archivos de 1_Vistas a este proyecto real
+  → Las rutas a 2_Funciones/ y 3_Assets/ deben ser correctas
+
+¿Puedo agregar mis propias carpetas?
+  → SÍ, mantén el mismo patrón y estructura
+
+¿Esto funciona en producción?
+  → SÍ, es mejor organizado para producción
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Generado: 5 de Diciembre, 2025
+Sistema: SGPI ITSSMT

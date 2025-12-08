@@ -1,0 +1,86 @@
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordRecoveryMail;
+class PasswordRecoveryController extends Controller
+{
+    public function showRequest()
+    {
+        return view('auth.password_recovery_request');
+    }
+    public function handleRequest(Request $request)
+    {
+        $validated = $request->validate(['email' => 'required|email']);
+        $user = DB::table('users')->where('email', $validated['email'])->first();
+        if (!$user) {
+            Log::warning('Password recovery: email no encontrado');
+            return redirect()->route('password-recovery.verify')->with('success', 'Si el correo existe, recibiras instrucciones.');
+        }
+        Log::info('Password recovery: email encontrado para user_id=' . $user->id);
+        $token = bin2hex(random_bytes(32));
+        $expiresAt = now()->addHour();
+        DB::table('password_resets')->where('user_id', $user->id)->delete();
+        DB::table('password_resets')->insert([
+            'user_id' => $user->id,
+            'token' => $token,
+            'expires_at' => $expiresAt,
+            'created_at' => now(),
+        ]);
+        try {
+            Log::info('Password recovery: enviando email a ' . $validated['email']);
+            Mail::mailer('smtp')->to($validated['email'])->send(new PasswordRecoveryMail($token, $validated['email']));
+            Log::info('Password recovery: email enviado');
+        } catch (\Exception $e) {
+            Log::error('Password recovery: error: ' . $e->getMessage());
+            return redirect()->route('password-recovery.request')->with('error', 'Error al enviar email.');
+        }
+        return redirect()->route('password-recovery.verify')->with('success', 'Instrucciones enviadas.')->with('email', $validated['email']);
+    }
+    public function showVerify()
+    {
+        return view('auth.password_recovery_verify');
+    }
+    public function handleVerify(Request $request)
+    {
+        $validated = $request->validate(['email' => 'required|email', 'token' => 'required|string']);
+        $user = DB::table('users')->where('email', $validated['email'])->first();
+        if (!$user) {
+            return redirect()->route('password-recovery.verify')->with('error', 'Email no encontrado.')->withInput();
+        }
+        $reset = DB::table('password_resets')->where('user_id', $user->id)->where('token', $validated['token'])->where('expires_at', '>', now())->first();
+        if (!$reset) {
+            return redirect()->route('password-recovery.verify')->with('error', 'Codigo invalido o expirado.')->withInput();
+        }
+        return redirect()->route('password-recovery.reset')->with('email', $validated['email'])->with('user_id', $user->id)->with('token', $validated['token']);
+    }
+    public function showReset()
+    {
+        $email = session('email');
+        $userId = session('user_id');
+        $token = session('token');
+        if (!$email || !$userId || !$token) {
+            return redirect()->route('password-recovery.request')->with('error', 'Sesion invalida.');
+        }
+        return view('auth.password_recovery_reset', ['email' => $email, 'user_id' => $userId, 'token' => $token]);
+    }
+    public function handleReset(Request $request)
+    {
+        $validated = $request->validate(['email' => 'required|email', 'user_id' => 'required|string', 'token' => 'required|string', 'password' => 'required|string|min:8|confirmed']);
+        $reset = DB::table('password_resets')->where('user_id', $validated['user_id'])->where('token', $validated['token'])->where('expires_at', '>', now())->first();
+        if (!$reset) {
+            return redirect()->route('password-recovery.request')->with('error', 'Codigo expirado.');
+        }
+        $user = DB::table('users')->where('id', $validated['user_id'])->first();
+        if (!$user) {
+            return redirect()->route('password-recovery.request')->with('error', 'Usuario no encontrado.');
+        }
+        DB::table('users')->where('id', $user->id)->update(['password' => Hash::make($validated['password'])]);
+        Log::info('Password recovery: contrasena actualizada para user_id=' . $user->id);
+        DB::table('password_resets')->where('id', $reset->id)->delete();
+        return redirect()->route('login')->with('success', 'Contrasena actualizada. Inicia sesion.');
+    }
+}

@@ -1,0 +1,463 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║                    ✅ PLANTILLA CREADA CON ÉXITO                             ║
+║                                                                               ║
+║              Sistema de Gestión de Proyectos Integradores (SGPI)              ║
+║                            Instituto Tecnológico ITSSMT                       ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+📍 UBICACIÓN
+════════════
+c:\laragon\www\PI\plantilla\
+
+
+📊 RESUMEN DE LO QUE SE CREÓ
+═════════════════════════════
+
+✅ 3 Carpetas principales
+✅ 16 Subcarpetas organizadas
+✅ 22 Vistas (interfaces por rol)
+✅ 16 Funciones (lógica del sistema)
+✅ 147 Assets (estilos, js, imágenes, librerías)
+✅ 5 Documentos de ayuda
+✅ 1 Página de inicio HTML
+
+TOTAL: 185 archivos + 5 documentos
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📂 ESTRUCTURA CREADA
+═══════════════════
+
+plantilla/
+│
+├── 1_VISTAS/ .......................... Las interfaces que ve el usuario
+│   ├── index.html
+│   ├── Login/
+│   │   ├── login.php
+│   │   ├── logout.php
+│   │   ├── forgot_password.php
+│   │   └── reset_password.php
+│   ├── Admin/ (9 archivos)
+│   │   ├── admin_welcome.php ⭐ INICIO
+│   │   ├── admin_view.php
+│   │   ├── projects_view.php
+│   │   ├── subjects_view.php
+│   │   ├── project_subjects_view.php
+│   │   ├── advisors_view.php
+│   │   ├── grafos_view.php
+│   │   ├── inactive_projects_view.php
+│   │   └── inactive_users_view.php
+│   ├── Docente/ (2 archivos)
+│   │   ├── docente_view.php ⭐ INICIO
+│   │   └── revision_entregables.php
+│   ├── Estudiante/ (2 archivos)
+│   │   ├── estudiante_view.php ⭐ INICIO
+│   │   └── entregables_view.php
+│   └── Repositorio/ (3 archivos)
+│       ├── academics.php
+│       ├── admissions.php
+│       └── faculty-staff.php
+│
+├── 2_FUNCIONES/ ....................... La lógica del sistema
+│   ├── Conexion/ (4 archivos)
+│   │   ├── db.php 🔌 CONEXIÓN A BD
+│   │   ├── conexion.php
+│   │   ├── config.ini
+│   │   └── config.json
+│   ├── Autenticacion/ (2 archivos)
+│   │   ├── AuthValidator.php
+│   │   └── password_reset_actions.php
+│   └── Actions/ (10 archivos - CRUD)
+│       ├── projects_actions.php
+│       ├── user_actions.php
+│       ├── subject_actions.php
+│       ├── project_subject_actions.php
+│       ├── grafo_actions.php
+│       ├── competencia_actions.php
+│       ├── entregable_actions.php
+│       ├── calificar_action.php
+│       ├── get_user_name.php
+│       └── advisor_actions.php
+│
+└── 3_ASSETS/ .......................... La decoración y efectos
+    ├── css/
+    │   └── main.css 🎨 ESTILOS
+    ├── scss/
+    │   └── (archivos SCSS)
+    ├── js/
+    │   └── main.js 🎬 INTERACTIVIDAD
+    ├── img/
+    │   ├── ITSSMT/ (logo)
+    │   ├── blog/ (proyectos)
+    │   ├── education/ (recursos)
+    │   └── person/ (perfiles)
+    └── vendor/ (librerías)
+        ├── bootstrap/
+        ├── bootstrap-icons/
+        ├── swiper/
+        ├── glightbox/
+        └── purecounter/
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTACIÓN INCLUIDA
+═════════════════════════
+
+Todos estos archivos están en la carpeta plantilla/ :
+
+1️⃣  EXPLICACION_SIMPLE.txt ⭐ COMIENZA POR AQUÍ
+    └─ Explicaciones en palabras simples
+    └─ Analogías fáciles de entender (restaurante, tienda, etc.)
+    └─ Ejemplo real: cómo se crea un proyecto
+    └─ Tiempo de lectura: ~10 minutos
+
+2️⃣  REFERENCIA_RAPIDA.txt
+    └─ Cheat sheet: "¿Dónde edito X cosa?"
+    └─ Tabla rápida de tareas y archivos
+    └─ Perfecto cuando ya entiendes la estructura
+    └─ Tiempo de lectura: ~5 minutos
+
+3️⃣  GUIA_VISUAL.md
+    └─ Diagramas ASCII
+    └─ Flujos técnicos
+    └─ Explicaciones detalladas
+    └─ Tiempo de lectura: ~15 minutos
+
+4️⃣  README.md
+    └─ Documentación profesional
+    └─ Análisis de ventajas
+    └─ Casos de uso
+    └─ Próximas acciones
+    └─ Tiempo de lectura: ~20 minutos
+
+5️⃣  INDICE.txt
+    └─ Listado visual de TODOS los archivos
+    └─ Estadísticas
+    └─ Preguntas frecuentes
+    └─ Tiempo de lectura: ~10 minutos
+
+6️⃣  ESTE ARCHIVO: RESUMEN.txt
+    └─ Lo que acabamos de crear
+    └─ Instrucciones de uso
+
+7️⃣  inicio.html
+    └─ Página HTML bonita
+    └─ Links a toda la documentación
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 PROPÓSITO DE CADA CARPETA
+═════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 1_VISTAS                                                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ PROPÓSITO: Las interfaces que ven los usuarios                             │
+│ CONTENIDO: Páginas HTML/PHP organizadas por rol                            │
+│ ARCHIVOS:  22 archivos                                                     │
+│ INCLUYE:                                                                    │
+│   • Login y autenticación                                                  │
+│   • Interfaces Admin (gestión total)                                       │
+│   • Interfaces Docente (calificar)                                         │
+│   • Interfaces Estudiante (entregas)                                       │
+│   • Repositorio público                                                    │
+│ CARACTERÍSTICO:                                                             │
+│   ✅ Tiene HTML, formularios, tablas                                       │
+│   ❌ NO procesa datos (solo recibe)                                        │
+│   ❌ NO conecta a BD directamente                                          │
+│   ❌ NO tiene lógica compleja                                              │
+│ ANALOGY: Es como el MENÚ de un restaurante                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 2_FUNCIONES                                                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ PROPÓSITO: La lógica que hace todo funcionar                               │
+│ CONTENIDO: Código PHP que procesa, valida y guarda datos                   │
+│ ARCHIVOS:  16 archivos organizados en 3 subdivisiones                      │
+│                                                                             │
+│ A) Conexion/ (4 archivos)                                                  │
+│    └─ Cómo conectar a BD y cargar configuración                            │
+│                                                                             │
+│ B) Autenticacion/ (2 archivos)                                             │
+│    └─ Validar login y recuperar contraseña                                 │
+│                                                                             │
+│ C) Actions/ (10 archivos)                                                  │
+│    └─ Procesar formularios (CRUD)                                          │
+│       • Create: proyectos, usuarios, asignaturas...                        │
+│       • Read: obtener datos                                                │
+│       • Update: editar                                                     │
+│       • Delete: eliminar                                                   │
+│ CARACTERÍSTICO:                                                             │
+│   ✅ Procesa datos                                                         │
+│   ✅ Conecta a BD                                                          │
+│   ✅ Valida                                                                │
+│   ❌ NO tiene HTML                                                         │
+│   ❌ NO tiene estilos                                                      │
+│ ANALOGY: Es como la COCINA de un restaurante                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 3_ASSETS                                                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ PROPÓSITO: Cómo se ve bonito e interactivo                                 │
+│ CONTENIDO: CSS, JS, imágenes, librerías externas                           │
+│ ARCHIVOS:  147 archivos                                                    │
+│ INCLUYE:                                                                    │
+│   • main.css: Todos los estilos (colores, fuentes, espacios)              │
+│   • main.js: Interactividad (modales, eventos, validaciones)              │
+│   • img/: Logos, fotos, recursos visuales                                  │
+│   • vendor/: Bootstrap, iconos, carrusel, galería, etc.                   │
+│ CARACTERÍSTICO:                                                             │
+│   ✅ Hace atractivo el sitio                                               │
+│   ✅ Agrega interactividad                                                 │
+│   ❌ NO procesa datos                                                      │
+│   ❌ NO conecta a BD                                                       │
+│   ❌ NO tiene lógica compleja                                              │
+│ ANALOGY: Es como la DECORACIÓN de un restaurante                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 CÓMO EMPEZAR
+═══════════════
+
+OPCIÓN A: Entender cómo funciona (RECOMENDADO)
+────────────────────────────────────────────
+
+1. Lee EXPLICACION_SIMPLE.txt (10 min)
+   └─ Entiende qué es cada carpeta en palabras simples
+
+2. Explora las carpetas reales
+   └─ Mira los archivos mientras lees
+
+3. Lee GUIA_VISUAL.md (15 min)
+   └─ Ve diagramas y flujos
+
+4. Consulta REFERENCIA_RAPIDA.txt
+   └─ Usa como cheat sheet
+
+5. Lee README.md completo (20 min)
+   └─ Documentación profesional
+
+
+OPCIÓN B: Usar como referencia rápida
+──────────────────────────────────
+
+1. Necesito cambiar algo en mi proyecto
+   └─ Consulto REFERENCIA_RAPIDA.txt
+
+2. Encuentro el archivo a editar
+   └─ Van a la carpeta correspondiente
+
+3. Edito
+   └─ Aplico cambios
+
+4. Pruebo
+   └─ Verifico que funcione
+
+
+OPCIÓN C: Implementar en proyecto real
+──────────────────────────────
+
+1. Copia archivos de 1_Vistas/, 2_Funciones/, 3_Assets/
+   └─ A tu proyecto real (Cliente/, Servidor/, assets/)
+
+2. Actualiza las rutas
+   └─ require_once y href y src en los archivos
+
+3. Prueba cada rol
+   └─ Login como admin, docente, estudiante
+
+4. Mantén esta estructura
+   └─ Para futuras funciones que agregues
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 CHECKLIST: ¿QUÉ ENCONTRASTE?
+═════════════════════════════════
+
+Vistas (Interfaces):
+  ☑️  Página principal (index.html)
+  ☑️  Login y autenticación (Login/)
+  ☑️  Panel Admin con 9 vistas (Admin/)
+  ☑️  Panel Docente con 2 vistas (Docente/)
+  ☑️  Panel Estudiante con 2 vistas (Estudiante/)
+  ☑️  Repositorio público (Repositorio/)
+
+Funciones (Lógica):
+  ☑️  Conexión a BD (Conexion/db.php)
+  ☑️  Validación de contraseñas (Autenticacion/)
+  ☑️  Recuperación de contraseña (Autenticacion/)
+  ☑️  Gestión de proyectos (Actions/)
+  ☑️  Gestión de usuarios (Actions/)
+  ☑️  Gestión de asignaturas (Actions/)
+  ☑️  Gestión de competencias (Actions/)
+  ☑️  Gestión de entregas (Actions/)
+  ☑️  Calificación (Actions/)
+  ☑️  Y más...
+
+Assets (Diseño):
+  ☑️  CSS principal (main.css)
+  ☑️  JavaScript (main.js)
+  ☑️  Imágenes (logo, fotos, recursos)
+  ☑️  Bootstrap (framework)
+  ☑️  Iconos (bootstrap-icons)
+  ☑️  Carrusel (swiper)
+  ☑️  Galería (glightbox)
+  ☑️  Contador (purecounter)
+
+Documentación:
+  ☑️  Explicación Simple
+  ☑️  Referencia Rápida
+  ☑️  Guía Visual
+  ☑️  README Completo
+  ☑️  Índice de Archivos
+  ☑️  Página HTML de Inicio
+  ☑️  Este Resumen
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+💡 EJEMPLO RÁPIDO: DÓNDE EDITAR ALGO
+═════════════════════════════════════
+
+TAREA: Cambiar el color de los botones
+┌─────────────────────────────────────┐
+│ Archivo: 3_Assets/css/main.css      │
+└─────────────────────────────────────┘
+
+TAREA: Agregar validación a formulario
+┌─────────────────────────────────────┐
+│ Archivo: 3_Assets/js/main.js        │
+└─────────────────────────────────────┘
+
+TAREA: Cambiar cómo se guarda un proyecto
+┌──────────────────────────────────────────────────────┐
+│ Archivo: 2_Funciones/Actions/projects_actions.php   │
+└──────────────────────────────────────────────────────┘
+
+TAREA: Ver qué ve un admin
+┌──────────────────────────────────────┐
+│ Carpeta: 1_Vistas/Admin/            │
+│ Especialmente: admin_welcome.php     │
+└──────────────────────────────────────┘
+
+TAREA: Cambiar credenciales de BD
+┌──────────────────────────────────────┐
+│ Archivo: 2_Funciones/Conexion/db.php │
+└──────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚡ PRÓXIMOS PASOS
+═════════════════
+
+1. Abre EXPLICACION_SIMPLE.txt en tu editor favorito
+   └─ ⏱️ 10 minutos de lectura
+
+2. Explora las carpetas 1_Vistas/, 2_Funciones/, 3_Assets/
+   └─ ⏱️ 5 minutos mirando archivos
+
+3. Lee REFERENCIA_RAPIDA.txt
+   └─ ⏱️ 5 minutos
+
+4. Copia esta estructura a tu proyecto real (si lo necesitas)
+   └─ ⏱️ 15 minutos
+
+5. Actualiza rutas en archivos PHP
+   └─ ⏱️ 20 minutos
+
+6. Prueba que funcione
+   └─ ⏱️ 15 minutos
+
+TOTAL: ~70 minutos para dominar la estructura
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❓ PREGUNTAS FRECUENTES
+══════════════════════
+
+P: ¿Está todo copiado del proyecto original?
+R: SÍ. Esta es una copia limpia y organizada. Puedes usar como referencia.
+
+P: ¿Necesito cambiar algo para que funcione?
+R: SOLO si lo usas en proyecto real. Debes actualizar rutas (require, href, src).
+
+P: ¿Puedo tener dos estructuras (original + plantilla)?
+R: SÍ. La plantilla es solo para referencia. Tu proyecto real sigue igual.
+
+P: ¿Qué pasa si tengo un error?
+R: Revisa REFERENCIA_RAPIDA.txt para saber dónde está el código.
+
+P: ¿Cómo agrego una nueva función?
+R: Mantén la estructura:
+   1. Crea vista en 1_Vistas/
+   2. Crea acciones en 2_Funciones/Actions/
+   3. Agrega CSS si necesita estilos en 3_Assets/css/
+
+P: ¿Está optimizado para producción?
+R: SÍ. La separación de carpetas es estándar en desarrollo profesional.
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ RESUMEN FINAL
+════════════════
+
+QUÉ CONSEGUISTE:
+────────────────
+✅ Una estructura clara del sistema SGPI
+✅ Archivos organizados por responsabilidad
+✅ Documentación completa y detallada
+✅ Referencia visual de toda la arquitectura
+✅ Guía paso a paso para entender
+
+CÓMO USARLO:
+────────────
+✅ Como referencia de cómo está organizado el proyecto
+✅ Como base para futuros desarrollos
+✅ Como documentación para nuevos desarrolladores
+✅ Como guía para implementar cambios
+
+ARCHIVOS IMPORTANTES:
+────────────────────
+⭐ EXPLICACION_SIMPLE.txt - COMIENZA AQUÍ
+⭐ REFERENCIA_RAPIDA.txt - ÚSALO SIEMPRE
+⭐ 1_VISTAS/ - Las interfaces
+⭐ 2_FUNCIONES/ - La lógica
+⭐ 3_ASSETS/ - El diseño
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎓 GRACIAS POR USAR ESTA PLANTILLA
+═══════════════════════════════════
+
+Esta estructura fue creada para hacer tu vida más fácil:
+- Entender rápido cómo está organizado todo
+- Encontrar archivos sin perderse
+- Agregar nuevas funciones sin romper nada
+- Documentar decisiones de arquitectura
+- Facilitar trabajo en equipo
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+FECHA: 5 de Diciembre, 2025
+SISTEMA: SGPI - Sistema de Gestión de Proyectos Integradores
+INSTITUCIÓN: Instituto Tecnológico de San Sebastián Mártir, Tlaxcala
+
+Para preguntas o mejoras: Consulta los documentos de ayuda incluidos.
+
+═════════════════════════════════════════════════════════════════════════════════

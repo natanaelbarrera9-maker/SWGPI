@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Modal Flotante sobre Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1B396A;
+            --secondary-blue: #2D5A96;
+            --light-bg: #f5f7fb;
+            --text-dark: #333645;
+            --text-muted: #7a7f88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Welcome page styling */
+        .welcome-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .welcome-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .welcome-subheader {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .welcome-nav {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .welcome-nav a {
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .welcome-nav a.btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+        }
+
+        .welcome-nav a.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 57, 106, 0.3);
+            color: white;
+        }
+
+        /* Modal backdrop */
+        .modal-backdrop-custom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+        }
+
+        /* Modal container */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050;
+        }
+
+        .modal-dialog-custom {
+            max-width: 550px;
+            width: 100%;
+            margin: 0 15px;
+        }
+
+        .modal-content-custom {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .modal-header-custom {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            padding: 25px;
+            border: none;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header-custom h5 {
+            color: white;
+            margin: 0;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-body-custom {
+            padding: 30px;
+            background-color: white;
+        }
+
+        /* Button styling */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 57, 106, 0.3);
+            color: white;
+        }
+
+        /* Form styling */
+        .form-label {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(45, 90, 150, 0.25);
+        }
+
+        /* Alert styling */
+        .alert {
+            border-radius: 6px;
+            border: none;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        small {
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog-custom {
+                margin: 0 15px;
+            }
+
+            .modal-body-custom {
+                padding: 20px;
+            }
+
+            .welcome-header {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome background -->
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <div class="welcome-header">
+                Bienvenido al Sistema
+            </div>
+            <div class="welcome-subheader">
+                Sistema de Gestión de Proyectos Académicos
+            </div>
+            <div class="welcome-nav">
+                <a href="#" class="btn-primary">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop-custom"></div>
+
+    <!-- Modal Container -->
+    <div class="modal-container">
+        <div class="modal-dialog-custom">
+            <div class="modal-content-custom">
+                <!-- Modal Header -->
+                <div class="modal-header-custom">
+                    <h5>
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                    </h5>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body-custom">
+                    <form method="POST" novalidate>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">
+                                <i class="bi bi-person"></i> Matrícula / Nómina
+                            </label>
+                            <input type="text" id="id" name="id" class="form-control" placeholder="Ej: 0000000001" required autofocus>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock"></i> Contraseña
+                            </label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary-custom mb-2">
+                            <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                        </button>
+                    </form>
+
+                    <hr class="my-3">
+
+                    <div class="text-center mb-2">
+                        <a href="#" style="color: var(--primary-blue); font-size: 14px; text-decoration: none;">
+                            <i class="bi bi-question-circle"></i> ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="#" style="color: #666; font-size: 14px; text-decoration: none;">
+                            <i class="bi bi-house"></i> Volver al inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

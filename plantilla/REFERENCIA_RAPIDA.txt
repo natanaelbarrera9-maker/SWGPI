@@ -1,0 +1,266 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║         ESTRUCTURA DE PLANTILLA - REFERENCIA RÁPIDA                            ║
+║         Sistema de Gestión de Proyectos Integradores (SGPI)                    ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📊 ESTADÍSTICAS
+===============
+✅ Total de Vistas:    22 archivos PHP/HTML
+✅ Total de Funciones: 16 archivos PHP (lógica)
+✅ Total de Assets:   147 archivos (CSS, JS, imágenes, librerías)
+✅ Carpetas:           16 directorios organizados
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 RÁPIDA REFERENCIA POR TAREA
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CAMBIAR ESTILOS / DISEÑO                                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 3_Assets/css/main.css
+   📝 Qué hacer: Editar colores, fuentes, espacios, responsive
+   💡 Tip: Usa DevTools del navegador para inspeccionar elementos
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ AGREGAR INTERACTIVIDAD / ANIMACIONES                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 3_Assets/js/main.js
+   📝 Qué hacer: Agregar eventos click, validaciones, animaciones
+   💡 Tip: Usa Bootstrap Modal para diálogos
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CREAR / EDITAR UNA VISTA (PÁGINA)                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta según rol:
+      - Admin:      1_Vistas/Admin/nueva_pagina.php
+      - Docente:    1_Vistas/Docente/nueva_pagina.php
+      - Estudiante: 1_Vistas/Estudiante/nueva_pagina.php
+   
+   📝 Qué hacer:
+      1. Crear archivo .php con HTML
+      2. Incluir: require_once __DIR__ . '/../../2_Funciones/Conexion/db.php';
+      3. Verificar permisos: if ($_SESSION['perfil_id'] != 1) { ... }
+      4. Usar Bootstrap para estructura HTML
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ AGREGAR NUEVA FUNCIONALIDAD (CRUD)                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+   Paso 1: Crear vista
+      📁 1_Vistas/Admin/nueva_feature.php
+
+   Paso 2: Crear acciones
+      📁 2_Funciones/Actions/nueva_feature_actions.php
+      📝 Incluir: require_once __DIR__ . '/../Conexion/db.php';
+      📝 Agregar POST handlers: if ($_POST['action'] == 'create') { ... }
+
+   Paso 3: Conectar en vista
+      📝 <form action="../../2_Funciones/Actions/nueva_feature_actions.php" method="POST">
+
+   Paso 4: Probar
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CAMBIAR LÓGICA DE CONEXIÓN A BD / CREDENCIALES                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 2_Funciones/Conexion/db.php
+   📝 Qué: Host, usuario, contraseña, base de datos
+   ⚠️  Importante: No compartir credenciales en producción
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CAMBIAR VALIDACIÓN DE CONTRASEÑA / AUTENTICACIÓN                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 2_Funciones/Autenticacion/AuthValidator.php
+   📝 Qué: Lógica de hash, comparación de contraseñas
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CAMBIAR FLUJO DE RECUPERACIÓN DE CONTRASEÑA                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 2_Funciones/Autenticacion/password_reset_actions.php
+   📝 Qué: Generar tokens, enviar emails, validar
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ AGREGAR NUEVA LIBRERÍA (Bootstrap, jQuery, etc)                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta: 3_Assets/vendor/
+   📝 Pasos:
+      1. Descargar librería
+      2. Copiar a 3_Assets/vendor/nombre_libreria/
+      3. En vista PHP, incluir: <link href="3_Assets/vendor/...">
+      4. En main.js si necesita inicialización
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ AGREGAR IMÁGENES (Logo, fotos de perfil, etc)                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+   📁 Ruta según tipo:
+      - Logo ITSSMT:     3_Assets/img/ITSSMT/
+      - Fotos proyecto:  3_Assets/img/blog/
+      - Educación:       3_Assets/img/education/
+      - Perfiles:        3_Assets/img/person/
+   
+   📝 En HTML:
+      <img src="3_Assets/img/ITSSMT/ITSSMT.png" alt="Logo">
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📂 ESTRUCTURA DETALLADA
+
+1_VISTAS/ (22 archivos)
+├── index.html ............................ Página pública
+├── Login/
+│   ├── login.php ......................... Ingreso
+│   ├── logout.php ........................ Salida
+│   ├── forgot_password.php .............. Recuperar
+│   └── reset_password.php ............... Restablecer
+├── Admin/ (8 archivos)
+│   ├── admin_welcome.php ⭐ ............. INICIO ADMIN
+│   ├── admin_view.php ................... Gestión usuarios
+│   ├── projects_view.php ................ Gestión proyectos
+│   ├── subjects_view.php ................ Gestión asignaturas
+│   ├── project_subjects_view.php ........ Asignar materias
+│   ├── advisors_view.php ................ Gestión asesores
+│   ├── grafos_view.php .................. Gestión grafos
+│   ├── inactive_projects_view.php ....... Proyectos inactivos
+│   └── inactive_users_view.php .......... Usuarios inactivos
+├── Docente/ (2 archivos)
+│   ├── docente_view.php ⭐ ............. INICIO DOCENTE
+│   └── revision_entregables.php ........ Calificar entregas
+├── Estudiante/ (2 archivos)
+│   ├── estudiante_view.php ⭐ .......... INICIO ESTUDIANTE
+│   └── entregables_view.php ............ Mis entregas
+└── Repositorio/ (3 archivos)
+    ├── academics.php ................... Por generación
+    ├── admissions.php .................. Por carrera
+    └── faculty-staff.php ............... Temas
+
+2_FUNCIONES/ (16 archivos)
+├── Conexion/ (4 archivos)
+│   ├── db.php ........................... Conexión + Session
+│   ├── conexion.php .................... Detalles
+│   ├── config.ini ...................... Credenciales
+│   └── config.json ..................... Config JSON
+├── Autenticacion/ (2 archivos)
+│   ├── AuthValidator.php ............... Validar password
+│   └── password_reset_actions.php ...... Recuperar contraseña
+└── Actions/ (10 archivos)
+    ├── projects_actions.php ........... CRUD Proyectos
+    ├── user_actions.php ............... CRUD Usuarios
+    ├── subject_actions.php ............ Crear asignaturas
+    ├── project_subject_actions.php .... Asignar materias
+    ├── grafo_actions.php .............. Subir grafos
+    ├── competencia_actions.php ........ Gestionar competencias
+    ├── entregable_actions.php ......... Gestionar entregas
+    ├── calificar_action.php ........... Calificar
+    ├── get_user_name.php .............. Buscar nombre
+    └── advisor_actions.php ............ Gestionar asesores
+
+3_ASSETS/ (147 archivos)
+├── css/
+│   └── main.css ........................ Estilos principales
+├── scss/
+│   └── (archivos para compilar)
+├── js/
+│   └── main.js ......................... Interactividad
+├── img/
+│   ├── ITSSMT/ ......................... Logo
+│   ├── blog/ ........................... Proyectos
+│   ├── education/ ...................... Recursos
+│   └── person/ ......................... Perfiles
+└── vendor/ (librerías externas)
+    ├── bootstrap/ ..................... Framework CSS/JS
+    ├── bootstrap-icons/ ............... Iconos
+    ├── swiper/ ........................ Carrusel
+    ├── glightbox/ ..................... Galería
+    └── purecounter/ ................... Contador
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎓 FLUJO BÁSICO
+
+Usuario abre navegador
+         ↓
+1_Vistas/index.html (muestra login)
+         ↓
+Usuario ingresa credenciales
+         ↓
+POST a: 1_Vistas/Login/login.php
+         ↓
+login.php usa:
+  - 2_Funciones/Conexion/db.php (conecta BD)
+  - 2_Funciones/Autenticacion/AuthValidator.php (valida)
+         ↓
+Si OK: redirige a panel según perfil
+  - Admin:      1_Vistas/Admin/admin_welcome.php
+  - Docente:    1_Vistas/Docente/docente_view.php
+  - Estudiante: 1_Vistas/Estudiante/estudiante_view.php
+         ↓
+Usuario interactúa con botones/formularios
+         ↓
+POST a: 2_Funciones/Actions/*_actions.php
+         ↓
+*_actions.php procesa y redirige a vista
+         ↓
+3_Assets/css/main.css da estilos
+3_Assets/js/main.js agrega interactividad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 NIVELES DE ACCESO
+
+perfil_id = 1 (ADMIN)
+  ✅ Puede ver:        Admin/
+  ✅ Puede procesar:   2_Funciones/Actions/ (todos)
+  ✅ Permisos:         Total sobre usuarios y proyectos
+
+perfil_id = 2 (DOCENTE)
+  ✅ Puede ver:        Docente/
+  ✅ Puede procesar:   2_Funciones/Actions/revision_entregables
+  ✅ Permisos:         Ver y calificar entregas
+
+perfil_id = 3 (ESTUDIANTE)
+  ✅ Puede ver:        Estudiante/
+  ✅ Puede procesar:   2_Funciones/Actions/entregable_actions
+  ✅ Permisos:         Enviar entregas propias
+
+SIN LOGIN
+  ✅ Puede ver:        index.html, Repositorio/
+  ✅ Permisos:         Solo lectura del repositorio
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⭐ ARCHIVOS MÁS IMPORTANTES
+
+1. 1_Vistas/index.html
+   → Página de entrada del sistema
+
+2. 1_Vistas/Admin/admin_welcome.php
+   → Panel principal del admin
+
+3. 2_Funciones/Conexion/db.php
+   → Corazón: conexión a BD
+
+4. 2_Funciones/Actions/projects_actions.php
+   → Ejemplo completo de CRUD
+
+5. 3_Assets/css/main.css
+   → Todos los estilos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTACIÓN ADICIONAL
+
+- README.md ............. Guía completa y estructurada
+- GUIA_VISUAL.md ........ Diagramas y explicaciones visuales
+- REFERENCIA_RAPIDA.txt . Este archivo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ Generado: 5 de Diciembre, 2025
+✨ Proyecto: SGPI ITSSMT

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWGPI</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #0859fa;">
     @yield('content')
 </body>
 </html>

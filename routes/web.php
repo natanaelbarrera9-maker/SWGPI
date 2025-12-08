@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
     
-    // Recuperación de Contraseña - Nuevo Flujo Limpio
+    // Recuperación de Contraseña 
     Route::get('/password-recovery', [PasswordRecoveryController::class, 'showRequest'])->name('password-recovery.request');
     Route::post('/password-recovery', [PasswordRecoveryController::class, 'handleRequest']);
     Route::get('/password-recovery-verify', [PasswordRecoveryController::class, 'showVerify'])->name('password-recovery.verify');

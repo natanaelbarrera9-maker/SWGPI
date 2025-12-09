@@ -1,5 +1,4 @@
 # Variables de entorno
-
 .env.local
 .env.*.local
 
@@ -33,6 +32,7 @@ Thumbs.db
 *.sqlite
 *.db
 *.mdb
+cy.sql
 
 # Archivos temporales
 tmp/

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
+use App\Exceptions\RouteRedirectException;
 
 class PasswordResetController extends Controller
 {
@@ -94,8 +95,7 @@ class PasswordResetController extends Controller
             ->first();
 
         if (!$reset) {
-            return redirect()->route('auth.password-reset-request')
-                ->with('error', 'Token invalido o expirado.');
+            throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Token invalido o expirado.']);
         }
 
         return view('auth.password_reset_form', [
@@ -119,14 +119,12 @@ class PasswordResetController extends Controller
             ->first();
 
         if (!$reset) {
-            return redirect()->route('auth.password-reset-request')
-                ->with('error', 'Token invalido o expirado.');
+            throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Token invalido o expirado.']);
         }
 
         $user = DB::table('users')->where('id', $validated['user_id'])->first();
         if (!$user) {
-            return redirect()->route('auth.password-reset-request')
-                ->with('error', 'Usuario no encontrado.');
+            throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Usuario no encontrado.']);
         }
 
         DB::table('users')

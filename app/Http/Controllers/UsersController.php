@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use App\Exceptions\BackWithErrorsException;
 
 class UsersController extends Controller
 {
@@ -57,9 +58,7 @@ class UsersController extends Controller
                 ->route('admin.users.index')
                 ->with('success', "Usuario {$user->nombres} creado exitosamente");
         } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->withErrors(['error' => 'Error al crear usuario: ' . $e->getMessage()]);
+            throw new BackWithErrorsException(['error' => 'Error al crear usuario: ' . $e->getMessage()], true);
         }
     }
 
@@ -116,9 +115,7 @@ class UsersController extends Controller
                 ->route('admin.users.index')
                 ->with('success', 'Usuario actualizado exitosamente');
         } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->withErrors(['error' => 'Error al actualizar: ' . $e->getMessage()]);
+            throw new BackWithErrorsException(['error' => 'Error al actualizar: ' . $e->getMessage()], true);
         }
     }
 
@@ -137,7 +134,7 @@ class UsersController extends Controller
                 ->route('admin.users.index')
                 ->with('success', 'Usuario desactivado exitosamente');
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Error al desactivar usuario']);
+            throw new BackWithErrorsException(['error' => 'Error al desactivar usuario']);
         }
     }
 
@@ -155,7 +152,7 @@ class UsersController extends Controller
 
             return back()->with('success', "Usuario {$status} exitosamente");
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Error al cambiar estado']);
+            throw new BackWithErrorsException(['error' => 'Error al cambiar estado']);
         }
     }
 

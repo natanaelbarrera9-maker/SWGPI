@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use App\Exceptions\BackWithErrorsException;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
             // Verificar que el usuario esté activo
             if (!Auth::user()->activo) {
                 Auth::logout();
-                return back()->withErrors(['id' => 'Tu cuenta ha sido desactivada.']);
+                    throw new BackWithErrorsException(['id' => 'Tu cuenta ha sido desactivada.']);
             }
 
             // Redirigir según rol
@@ -41,9 +42,7 @@ class AuthController extends Controller
             );
         }
 
-        return back()
-            ->withInput($request->only('id'))
-            ->withErrors(['id' => 'Las credenciales no son válidas.']);
+        throw new BackWithErrorsException(['id' => 'Las credenciales no son válidas.'], true);
     }
 
     /**

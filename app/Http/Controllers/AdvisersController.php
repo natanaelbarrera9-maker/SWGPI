@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\BackWithErrorsException;
 
 class AdvisersController extends Controller
 {
@@ -60,7 +61,7 @@ class AdvisersController extends Controller
         // Verify user is a teacher (perfil_id = 2)
         $teacher = DB::table('users')->where('id', $validated['user_id'])->where('perfil_id', 2)->first();
         if (!$teacher) {
-            return redirect()->back()->withErrors(['user_id' => 'Solo se pueden asignar docentes como asesores.']);
+            throw new BackWithErrorsException(['user_id' => 'Solo se pueden asignar docentes como asesores.']);
         }
 
         // Check if there's already a primary or secondary adviser
@@ -70,7 +71,7 @@ class AdvisersController extends Controller
             ->first();
 
         if ($existing) {
-            return redirect()->back()->withErrors(['rol_asesor' => "Ya existe un asesor {$validated['rol_asesor']} para este proyecto."]);
+            throw new BackWithErrorsException(['rol_asesor' => "Ya existe un asesor {$validated['rol_asesor']} para este proyecto."]);
         }
 
         // Check if teacher is already an adviser (any role) for this project
@@ -81,7 +82,7 @@ class AdvisersController extends Controller
             ->first();
 
         if ($alreadyAssigned) {
-            return redirect()->back()->withErrors(['user_id' => 'Este docente ya es asesor de este proyecto.']);
+            throw new BackWithErrorsException(['user_id' => 'Este docente ya es asesor de este proyecto.']);
         }
 
         // Insert or update adviser assignment

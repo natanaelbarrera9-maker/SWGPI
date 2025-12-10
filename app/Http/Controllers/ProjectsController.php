@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\BackWithErrorsException;
 
 class ProjectsController extends Controller
 {
@@ -40,7 +41,7 @@ class ProjectsController extends Controller
         $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
         $invalid = array_diff($studentIds, $validStudents);
         if (!empty($invalid)) {
-            return redirect()->back()->withErrors(['student_ids' => 'Solo se pueden registrar estudiantes válidos.']);
+            throw new BackWithErrorsException(['student_ids' => 'Solo se pueden registrar estudiantes válidos.']);
         }
 
         // Create project with authenticated user as creator
@@ -158,7 +159,7 @@ class ProjectsController extends Controller
             $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
             $invalid = array_diff($studentIds, $validStudents);
             if (!empty($invalid)) {
-                return redirect()->back()->withErrors(['student_ids' => 'Solo se pueden asignar estudiantes válidos.']);
+                throw new BackWithErrorsException(['student_ids' => 'Solo se pueden asignar estudiantes válidos.']);
             }
 
             // Remove existing student (non-adviser) relations for this project

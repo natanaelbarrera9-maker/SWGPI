@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\BackWithErrorsException;
 
 class ProjectsController extends Controller
@@ -29,44 +30,51 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'student_ids' => 'required|array|min:1',
-            'student_ids.*' => 'required|string|exists:users,id',
-        ]);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'student_ids' => 'required|array|min:1',
+                'student_ids.*' => 'required|string|exists:users,id',
+            ]);
 
-        // Verify all students are actually perfil_id = 3
-        $studentIds = $validated['student_ids'];
-        $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
-        $invalid = array_diff($studentIds, $validStudents);
-        if (!empty($invalid)) {
-            throw new BackWithErrorsException(['student_ids' => 'Solo se pueden registrar estudiantes válidos.']);
+            // Verify all students are actually perfil_id = 3
+            $studentIds = $validated['student_ids'];
+            $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
+            $invalid = array_diff($studentIds, $validStudents);
+            if (!empty($invalid)) {
+                throw new BackWithErrorsException(['student_ids' => 'Solo se pueden registrar estudiantes válidos.']);
+            }
+
+            // Create project with authenticated user as creator
+            $creatorId = Auth::id();
+            $projectId = DB::table('projects')->insertGetId([
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'created_by' => $creatorId,
+                'created_at' => now(),
+            ]);
+
+            // Add each selected student in project_user pivot
+            $inserts = [];
+            foreach ($studentIds as $sid) {
+                $inserts[] = [
+                    'project_id' => $projectId,
+                    'user_id' => $sid,
+                    'rol_asesor' => null, // Author, not an adviser
+                ];
+            }
+            if (!empty($inserts)) {
+                DB::table('project_user')->insert($inserts);
+            }
+
+            return redirect()->route('admin.projects.index')->with('success', 'Proyecto creado correctamente.');
+        } catch (BackWithErrorsException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('ProjectsController@store error: ' . $e->getMessage());
+            throw new BackWithErrorsException(['error' => 'Error al crear proyecto: ' . $e->getMessage()]);
         }
-
-        // Create project with authenticated user as creator
-        $creatorId = Auth::id();
-        $projectId = DB::table('projects')->insertGetId([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'created_by' => $creatorId,
-            'created_at' => now(),
-        ]);
-
-        // Add each selected student in project_user pivot
-        $inserts = [];
-        foreach ($studentIds as $sid) {
-            $inserts[] = [
-                'project_id' => $projectId,
-                'user_id' => $sid,
-                'rol_asesor' => null, // Author, not an adviser
-            ];
-        }
-        if (!empty($inserts)) {
-            DB::table('project_user')->insert($inserts);
-        }
-
-        return redirect()->route('admin.projects.index')->with('success', 'Proyecto creado correctamente.');
     }
 
     public function show($id)
@@ -141,50 +149,62 @@ class ProjectsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-        ]);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+            ]);
 
-        DB::table('projects')->where('id', $id)->update([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-        ]);
+            DB::table('projects')->where('id', $id)->update([
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+            ]);
 
-        // If student selection submitted, sync project_user for students
-        if ($request->has('student_ids')) {
-            $studentIds = (array) $request->input('student_ids');
+            // If student selection submitted, sync project_user for students
+            if ($request->has('student_ids')) {
+                $studentIds = (array) $request->input('student_ids');
 
-            // Validate that selected students exist and are perfil_id = 3 and not assigned to other projects
-            $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
-            $invalid = array_diff($studentIds, $validStudents);
-            if (!empty($invalid)) {
-                throw new BackWithErrorsException(['student_ids' => 'Solo se pueden asignar estudiantes válidos.']);
+                // Validate that selected students exist and are perfil_id = 3 and not assigned to other projects
+                $validStudents = DB::table('users')->whereIn('id', $studentIds)->where('perfil_id', 3)->pluck('id')->toArray();
+                $invalid = array_diff($studentIds, $validStudents);
+                if (!empty($invalid)) {
+                    throw new BackWithErrorsException(['student_ids' => 'Solo se pueden asignar estudiantes válidos.']);
+                }
+
+                // Remove existing student (non-adviser) relations for this project
+                DB::table('project_user')->where('project_id', $id)->whereNull('rol_asesor')->delete();
+
+                // Insert new relations
+                $inserts = [];
+                foreach ($studentIds as $sid) {
+                    $inserts[] = [
+                        'project_id' => $id,
+                        'user_id' => $sid,
+                        'rol_asesor' => null,
+                    ];
+                }
+                if (!empty($inserts)) {
+                    DB::table('project_user')->insert($inserts);
+                }
             }
 
-            // Remove existing student (non-adviser) relations for this project
-            DB::table('project_user')->where('project_id', $id)->whereNull('rol_asesor')->delete();
-
-            // Insert new relations
-            $inserts = [];
-            foreach ($studentIds as $sid) {
-                $inserts[] = [
-                    'project_id' => $id,
-                    'user_id' => $sid,
-                    'rol_asesor' => null,
-                ];
-            }
-            if (!empty($inserts)) {
-                DB::table('project_user')->insert($inserts);
-            }
+            return redirect()->route('admin.projects.index')->with('success', 'Proyecto actualizado correctamente.');
+        } catch (BackWithErrorsException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('ProjectsController@update error: ' . $e->getMessage());
+            throw new BackWithErrorsException(['error' => 'Error al actualizar proyecto: ' . $e->getMessage()]);
         }
-
-        return redirect()->route('admin.projects.index')->with('success', 'Proyecto actualizado correctamente.');
     }
 
     public function destroy($id)
     {
-        DB::table('projects')->where('id', $id)->delete();
-        return redirect()->route('admin.projects.index')->with('success', 'Proyecto eliminado correctamente.');
+        try {
+            DB::table('projects')->where('id', $id)->delete();
+            return redirect()->route('admin.projects.index')->with('success', 'Proyecto eliminado correctamente.');
+        } catch (\Exception $e) {
+            Log::error('ProjectsController@destroy error: ' . $e->getMessage());
+            throw new BackWithErrorsException(['error' => 'Error al eliminar proyecto']);
+        }
     }
 }

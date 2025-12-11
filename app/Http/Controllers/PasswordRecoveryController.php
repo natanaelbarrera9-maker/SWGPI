@@ -50,10 +50,12 @@ class PasswordRecoveryController extends Controller
         $validated = $request->validate(['email' => 'required|email', 'token' => 'required|string']);
         $user = DB::table('users')->where('email', $validated['email'])->first();
         if (!$user) {
+            Log::warning('PasswordRecoveryController@handleVerify: email not found ' . $validated['email']);
             throw new RouteRedirectException('password-recovery.verify', ['error' => 'Email no encontrado.'], [], true);
         }
         $reset = DB::table('password_resets')->where('user_id', $user->id)->where('token', $validated['token'])->where('expires_at', '>', now())->first();
         if (!$reset) {
+            Log::warning('PasswordRecoveryController@handleVerify: invalid or expired token for email ' . $validated['email']);
             throw new RouteRedirectException('password-recovery.verify', ['error' => 'Codigo invalido o expirado.'], [], true);
         }
         return redirect()->route('password-recovery.reset')->with('email', $validated['email'])->with('user_id', $user->id)->with('token', $validated['token']);
@@ -64,6 +66,7 @@ class PasswordRecoveryController extends Controller
         $userId = session('user_id');
         $token = session('token');
         if (!$email || !$userId || !$token) {
+            Log::warning('PasswordRecoveryController@showReset: invalid session values');
             throw new RouteRedirectException('password-recovery.request', ['error' => 'Sesion invalida.']);
         }
         return view('auth.password_recovery_reset', ['email' => $email, 'user_id' => $userId, 'token' => $token]);
@@ -73,10 +76,12 @@ class PasswordRecoveryController extends Controller
         $validated = $request->validate(['email' => 'required|email', 'user_id' => 'required|string', 'token' => 'required|string', 'password' => 'required|string|min:8|confirmed']);
         $reset = DB::table('password_resets')->where('user_id', $validated['user_id'])->where('token', $validated['token'])->where('expires_at', '>', now())->first();
         if (!$reset) {
+            Log::warning('PasswordRecoveryController@handleReset: reset token expired for user_id=' . $validated['user_id']);
             throw new RouteRedirectException('password-recovery.request', ['error' => 'Codigo expirado.']);
         }
         $user = DB::table('users')->where('id', $validated['user_id'])->first();
         if (!$user) {
+            Log::warning('PasswordRecoveryController@handleReset: user not found user_id=' . $validated['user_id']);
             throw new RouteRedirectException('password-recovery.request', ['error' => 'Usuario no encontrado.']);
         }
         DB::table('users')->where('id', $user->id)->update(['password' => Hash::make($validated['password'])]);

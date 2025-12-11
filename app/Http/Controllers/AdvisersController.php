@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\BackWithErrorsException;
 
 class AdvisersController extends Controller
@@ -52,7 +53,8 @@ class AdvisersController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        try {
+            $validated = $request->validate([
             'project_id' => 'required|integer|exists:projects,id',
             'user_id' => 'required|string|exists:users,id',
             'rol_asesor' => 'required|in:primario,secundario',
@@ -81,23 +83,30 @@ class AdvisersController extends Controller
             ->where('rol_asesor', '!=', null)
             ->first();
 
-        if ($alreadyAssigned) {
-            throw new BackWithErrorsException(['user_id' => 'Este docente ya es asesor de este proyecto.']);
+            if ($alreadyAssigned) {
+                throw new BackWithErrorsException(['user_id' => 'Este docente ya es asesor de este proyecto.']);
+            }
+
+            // Insert or update adviser assignment
+            DB::table('project_user')->updateOrInsert(
+                [
+                    'project_id' => $validated['project_id'],
+                    'user_id' => $validated['user_id'],
+                ],
+                [
+                    'rol_asesor' => $validated['rol_asesor'],
+                ]
+            );
+
+            return redirect()->route('admin.advisers.show', $validated['project_id'])
+                ->with('success', "Asesor {$validated['rol_asesor']} asignado correctamente.");
+        } catch (BackWithErrorsException $e) {
+            // rethrow validation/business exceptions to be handled by framework
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('AdvisersController@store error: ' . $e->getMessage());
+            throw new BackWithErrorsException(['error' => 'Error al asignar asesor: ' . $e->getMessage()]);
         }
-
-        // Insert or update adviser assignment
-        DB::table('project_user')->updateOrInsert(
-            [
-                'project_id' => $validated['project_id'],
-                'user_id' => $validated['user_id'],
-            ],
-            [
-                'rol_asesor' => $validated['rol_asesor'],
-            ]
-        );
-
-        return redirect()->route('admin.advisers.show', $validated['project_id'])
-            ->with('success', "Asesor {$validated['rol_asesor']} asignado correctamente.");
     }
 
     /**
@@ -105,13 +114,18 @@ class AdvisersController extends Controller
      */
     public function destroy($projectId, $userId)
     {
-        DB::table('project_user')
-            ->where('project_id', $projectId)
-            ->where('user_id', $userId)
-            ->update(['rol_asesor' => null]);
+        try {
+            DB::table('project_user')
+                ->where('project_id', $projectId)
+                ->where('user_id', $userId)
+                ->update(['rol_asesor' => null]);
 
-        return redirect()->route('admin.advisers.show', $projectId)
-            ->with('success', 'Asesor desasignado correctamente.');
+            return redirect()->route('admin.advisers.show', $projectId)
+                ->with('success', 'Asesor desasignado correctamente.');
+        } catch (\Exception $e) {
+            Log::error('AdvisersController@destroy error: ' . $e->getMessage());
+            throw new BackWithErrorsException(['error' => 'Error al desasignar asesor']);
+        }
     }
 }
 

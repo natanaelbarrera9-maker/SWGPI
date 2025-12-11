@@ -95,6 +95,7 @@ class PasswordResetController extends Controller
             ->first();
 
         if (!$reset) {
+            Log::warning('PasswordResetController@verifyToken: token invalido or expired for user_id=' . ($validated['user_id'] ?? ''));
             throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Token invalido o expirado.']);
         }
 
@@ -119,11 +120,13 @@ class PasswordResetController extends Controller
             ->first();
 
         if (!$reset) {
+            Log::warning('PasswordResetController@reset: token invalido or expired for user_id=' . ($validated['user_id'] ?? ''));
             throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Token invalido o expirado.']);
         }
 
         $user = DB::table('users')->where('id', $validated['user_id'])->first();
         if (!$user) {
+            Log::warning('PasswordResetController@reset: user not found user_id=' . ($validated['user_id'] ?? ''));
             throw new RouteRedirectException('auth.password-reset-request', ['error' => 'Usuario no encontrado.']);
         }
 
